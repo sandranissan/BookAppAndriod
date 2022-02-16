@@ -10,6 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookApp">
         <activity
+            android:name=".SpecificBookPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfilPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyBooksPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DiscoverPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignInPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
