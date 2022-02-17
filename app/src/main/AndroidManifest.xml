@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookApp">
         <activity
+            android:name=".BookShelfSignPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".SpecificBookPageActivity"
             android:exported="false" />
         <activity
