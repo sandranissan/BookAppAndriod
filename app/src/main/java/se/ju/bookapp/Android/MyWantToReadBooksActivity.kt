@@ -3,9 +3,9 @@ package se.ju.bookapp.Android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MyBooksPageActivity : AppCompatActivity() {
+class MyWantToReadBooksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_books_page)
+        setContentView(R.layout.activity_my_want_to_read_books)
     }
 }

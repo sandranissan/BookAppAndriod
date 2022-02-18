@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookApp">
         <activity
+            android:name=".MyReadBooksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyWantToReadBooksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyReadBooks"
+            android:exported="false" />
+        <activity
             android:name=".BookShelfSignPageActivity"
             android:exported="false" />
         <activity
