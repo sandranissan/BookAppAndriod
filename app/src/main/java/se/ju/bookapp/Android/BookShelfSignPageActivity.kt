@@ -3,9 +3,9 @@ package se.ju.bookapp.Android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MyBooksPageActivity : AppCompatActivity() {
+class BookShelfSignPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_books_page)
+        setContentView(R.layout.activity_book_shelf_sign_page)
     }
 }
