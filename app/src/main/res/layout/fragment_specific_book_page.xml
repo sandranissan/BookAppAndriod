@@ -6,59 +6,99 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.SpecificBookPageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BOOKSHELF"
-            android:paddingTop="15sp"
-            android:textColor="@color/black"
-            android:textSize="40sp"
-            android:layout_gravity="top|center_horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-
-            <Button
-                android:id="@+id/signUpBtn"
-                android:layout_width="200sp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign-up"
-                android:backgroundTint="@android:color/white"
-                android:textColor="#1E90FF"
-                android:textSize="30sp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.499" />
+                <ImageView
+                    android:id="@+id/bookCoverIv"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="8dp" />
 
-            <Button
-                android:id="@+id/signInBtn"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Sign-in"
-                android:backgroundTint="@android:color/white"
-                android:textColor="#32CD32"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signUpBtn" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/titleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:id="@+id/authorTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="22sp" />
+
+                <View
+                    android:layout_width="280dp"
+                    android:layout_height="1px"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Published By"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/publisherTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/pageCountTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/addToMyWantToReadBtn"
+                    android:layout_width="235sp"
+                    android:layout_height="wrap_content"
+                    android:text="Add to my want to read list"
+                    android:textAllCaps="false"
+                    android:backgroundTint="#6E77C6"
+                    android:textColor="@color/black">
+                </Button>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="5sp"
+                    android:text="or"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="15sp" />
+                <Button
+                    android:id="@+id/addToMyReadBtn"
+                    android:layout_width="235sp"
+                    android:layout_height="wrap_content"
+                    android:text="Add to my read list"
+                    android:backgroundTint="#77C66E"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false">
+
+                </Button>
+            </LinearLayout>
+        </ScrollView>
 
         <ProgressBar
             android:id="@+id/loadingProgressBar"
@@ -66,8 +106,7 @@
             android:layout_gravity="center"
             android:visibility="invisible"
             android:layout_width="48dp"
-            android:layout_height="48dp"/>
-
+            android:layout_height="48dp" />
     </FrameLayout>
 
 </FrameLayout>
