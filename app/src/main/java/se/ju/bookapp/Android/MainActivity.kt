@@ -14,6 +14,11 @@ import se.ju.bookapp.Android.fragments.MyBooksFragment
 import se.ju.bookapp.Android.fragments.ProfileFragment
 import se.ju.bookapp.Android.fragments.SearchFragment
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+
+
 class MainActivity : AppCompatActivity() {
 
 
@@ -34,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigation.setupWithNavController(navController)
 
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
 
 

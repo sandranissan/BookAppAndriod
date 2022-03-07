@@ -66,17 +66,13 @@
                 android:backgroundTint="@android:color/white"
                 android:textColor="#1E90FF"
                 android:textSize="25sp"/>
-            <TextView
-                android:id="@+id/SignUpFacebook"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#1E90FF"
-                android:layout_gravity="center"
-                android:text="Or sign-up with Facebook"
-                android:gravity="center_horizontal"
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/sign_up_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
 
         </LinearLayout>
         <ProgressBar

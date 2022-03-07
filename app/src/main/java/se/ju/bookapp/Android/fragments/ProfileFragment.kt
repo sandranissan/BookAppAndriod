@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import se.ju.bookapp.Android.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,8 +36,17 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile2, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile2, container, false)
+        val signOutBtn : Button = view.findViewById(R.id.signOutBtn)
+
+        signOutBtn.setOnClickListener {
+            val fragment = DiscoverFragment()
+            val transaction =  fragmentManager?.beginTransaction()
+            transaction?.replace(R.id.fragmentContainerView, fragment)?.commit()
+        }
+        return view
     }
+
 
     companion object {
         /**
