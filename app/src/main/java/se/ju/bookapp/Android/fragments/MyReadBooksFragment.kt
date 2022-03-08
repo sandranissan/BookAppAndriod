@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import se.ju.bookapp.Android.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,7 +36,16 @@ class MyReadBooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_read_books, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_read_books, container, false)
+        val prevBtn : Button = view.findViewById(R.id.toRead)
+
+        prevBtn.setOnClickListener {
+            val fragment = MyBooksFragment()
+            val transaction = fragmentManager?.beginTransaction()
+            transaction?.replace(R.id.fragmentContainerView, fragment)?.commit()
+        }
+
+        return view
     }
 
     companion object {
