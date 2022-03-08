@@ -57,16 +57,13 @@
                 android:textColor="#32CD32"
                 android:textSize="25sp"/>
 
-            <TextView
-                android:id="@+id/signInFacebook"
-                android:layout_marginTop="10dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#1E90FF"
-                android:layout_gravity="center"
-                android:text="Or sign-in with Facebook"
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp" />
         </LinearLayout>
         <ProgressBar
             android:id="@+id/loadingProgressBar"
