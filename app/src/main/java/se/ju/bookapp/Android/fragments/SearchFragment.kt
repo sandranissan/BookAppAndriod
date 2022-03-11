@@ -7,11 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.HttpException
 import se.ju.bookapp.Android.Api.RetrofitInstance
+import se.ju.bookapp.Android.BookClickListener
+import se.ju.bookapp.Android.MainActivity
+import se.ju.bookapp.Android.Model.VolumeInfo
+import se.ju.bookapp.Android.R
 import se.ju.bookapp.Android.SearchResultAdapter
 import se.ju.bookapp.Android.databinding.FragmentSearchBinding
 import java.io.IOException
@@ -28,7 +35,7 @@ private const val ARG_PARAM2 = "param2"
  */
 const val TAG ="SearchFragment"
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), BookClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -88,7 +95,7 @@ class SearchFragment : Fragment() {
 
     private fun setupRecyclerView() = binding.searchResultRecyclerView.apply {
         println("SearchFragment: setUpRecyclerView")
-        searchResultAdapter = SearchResultAdapter()
+        searchResultAdapter = SearchResultAdapter(this@SearchFragment)
         adapter = searchResultAdapter
         layoutManager = LinearLayoutManager(this@SearchFragment.context)
     }
@@ -140,6 +147,13 @@ class SearchFragment : Fragment() {
             }
             binding.progressBar.isVisible = false
         }
+    }
+
+    override fun onItemClick(volumeInfo: VolumeInfo) {
+        print("${volumeInfo.title}")
+        Toast.makeText(context, volumeInfo.title, Toast.LENGTH_SHORT).show()
+        val bundle = bundleOf("volumeInfo" to volumeInfo)
+        findNavController().navigate(R.id.specificBookPageFragment, bundle)
     }
 }
 

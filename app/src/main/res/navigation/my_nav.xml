@@ -24,5 +24,18 @@
         android:id="@+id/searchFragment"
         android:name="se.ju.bookapp.Android.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_specificBookPageFragment"
+            app:destination="@id/specificBookPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/specificBookPageFragment"
+        android:name="se.ju.bookapp.Android.fragments.SpecificBookPageFragment"
+        android:label="fragment_specific_book_page"
+        tools:layout="@layout/fragment_specific_book_page" >
+        <argument
+            android:name="volumeInfo"
+            app:argType="android.support.v4.media.session.ParcelableVolumeInfo" />
+    </fragment>
 </navigation>

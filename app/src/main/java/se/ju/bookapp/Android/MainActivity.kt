@@ -3,16 +3,9 @@ package se.ju.bookapp.Android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.RelativeLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import se.ju.bookapp.Android.fragments.DiscoverFragment
-import se.ju.bookapp.Android.fragments.MyBooksFragment
-import se.ju.bookapp.Android.fragments.ProfileFragment
-import se.ju.bookapp.Android.fragments.SearchFragment
 import android.widget.Toast
 import com.facebook.AccessToken
 import com.google.firebase.ktx.Firebase
@@ -23,6 +16,7 @@ import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_sign_in_page.*
+import se.ju.bookapp.Android.Model.VolumeInfo
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,24 +37,10 @@ class MainActivity : AppCompatActivity() {
             signIn()
         }
 
-
-
-        //val discoverFragment = DiscoverFragment()
-        //val myBooksFragment = MyBooksFragment()
-        //val profileFragment = ProfileFragment()
-        //val searchFragment = SearchFragment()
-
-        //makeCurrentFragment(discoverFragment)
-
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val navController = findNavController(R.id.fragmentContainerView)
 
         bottomNavigation.setupWithNavController(navController)
-
-
-
-
-
     }
 
     private fun signIn() {
