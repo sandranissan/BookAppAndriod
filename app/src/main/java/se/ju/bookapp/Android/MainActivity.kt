@@ -3,9 +3,6 @@ package se.ju.bookapp.Android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.RelativeLayout
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import kotlinx.android.synthetic.main.fragment_sign_in_page.*
+import se.ju.bookapp.Android.Model.VolumeInfo
 import se.ju.bookapp.Android.fragments.*
 
 
@@ -41,20 +39,37 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-        //val discoverFragment = DiscoverFragment()
-        //val myBooksFragment = MyBooksFragment()
-        //val profileFragment = ProfileFragment()
-        //val searchFragment = SearchFragment()
-
-        //makeCurrentFragment(discoverFragment)
-
-
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val navController = findNavController(R.id.fragmentContainerView)
         //val signOutBtn : Button = findViewById(R.id.signOutBtn)
 
         bottomNavigation.setupWithNavController(navController)
+    }
+
+    private fun signIn() {
+        login_button.registerCallback(callbackManager, object:FacebookCallback<LoginResult>{
+            override fun onSuccess(result: LoginResult) {
+                handleFacebookAccessToken(result!!.accessToken)
+            }
+
+            override fun onCancel() {
+                TODO("Not yet implemented")
+            }
+
+            override fun onError(error: FacebookException) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
+
+    private fun handleFacebookAccessToken(accessToken: AccessToken?) {
+        // get credential
+        val credential = FacebookAuthProvider.getCredential(accessToken!!.token)
+        firebaseAuth!!.signInWithCredential(credential)
+            .addOnFailureListener { e->
+                Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
 
 
         bottomNavigation.setOnItemSelectedListener(){
@@ -84,15 +99,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
     }
 
 }
-
-
-// private fun makeCurrentFragment(fragment: Fragment) =
-//    supportFragmentManager.beginTransaction().apply {
-//       replace(R.id.fragment_container, fragment)
-//        commit()
-//}

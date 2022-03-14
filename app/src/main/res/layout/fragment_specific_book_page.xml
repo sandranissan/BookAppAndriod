@@ -29,6 +29,7 @@
 
                 <TextView
                     android:id="@+id/titleTv"
+                    android:text="Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -38,6 +39,7 @@
 
                 <TextView
                     android:id="@+id/authorTv"
+                    android:text="Authors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -49,21 +51,19 @@
                     android:layout_marginTop="8dp"
                     android:background="@android:color/darker_gray" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Published By"
-                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/publisherTv"
+                    android:id="@+id/descriptionTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Publisher"
                     android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/pageCountTv"
+                    android:text="pageCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -78,6 +78,7 @@
                     android:backgroundTint="#6E77C6"
                     android:textColor="@color/black">
                 </Button>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

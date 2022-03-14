@@ -1,5 +1,9 @@
 package se.ju.bookapp.Android.Model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class VolumeInfo(
     val allowAnonLogging: Boolean,
     val authors: List<String>,
@@ -23,4 +27,4 @@ data class VolumeInfo(
     val readingModes: ReadingModes,
     val subtitle: String,
     val title: String
-)
+): Parcelable

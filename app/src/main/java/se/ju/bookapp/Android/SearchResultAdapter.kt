@@ -1,6 +1,8 @@
 package se.ju.bookapp.Android
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -10,9 +12,21 @@ import coil.transform.CircleCropTransformation
 import se.ju.bookapp.Android.Model.Item
 import se.ju.bookapp.Android.databinding.BookItemBinding
 
-class SearchResultAdapter: RecyclerView.Adapter<SearchResultAdapter.BookViewHolder>() {
+class SearchResultAdapter(private val bookClickListener: BookClickListener): RecyclerView.Adapter<SearchResultAdapter.BookViewHolder>() {
 
-    inner class BookViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class BookViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(binding.root),
+        View.OnClickListener {
+
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val position = adapterPosition
+            val bookVolume = items[position].volumeInfo
+            bookClickListener.onItemClick(bookVolume)
+        }
+    }
 
     private val diffCallback = object : DiffUtil.ItemCallback<Item>(){
         override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
