@@ -25,4 +25,14 @@
         android:name="se.ju.bookapp.Android.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/signInPageFragment"
+        android:name="se.ju.bookapp.Android.fragments.SignInPageFragment"
+        android:label="fragment_sign_in_page"
+        tools:layout="@layout/fragment_sign_in_page" />
+    <fragment
+        android:id="@+id/signUpPageFragment"
+        android:name="se.ju.bookapp.Android.fragments.SignUpPageFragment"
+        android:label="fragment_sign_up_page"
+        tools:layout="@layout/fragment_sign_up_page" />
 </navigation>
