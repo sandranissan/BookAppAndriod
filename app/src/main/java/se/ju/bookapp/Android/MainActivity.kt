@@ -40,16 +40,6 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
 
-
-
-        //val discoverFragment = DiscoverFragment()
-        //val myBooksFragment = MyBooksFragment()
-        //val profileFragment = ProfileFragment()
-        //val searchFragment = SearchFragment()
-
-        //makeCurrentFragment(discoverFragment)
-
-
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val navController = findNavController(R.id.fragmentContainerView)
         //val signOutBtn : Button = findViewById(R.id.signOutBtn)
@@ -84,7 +74,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
 
     }
 

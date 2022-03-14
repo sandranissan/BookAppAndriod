@@ -49,11 +49,14 @@ class SignUpPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view= inflater.inflate(R.layout.fragment_sign_up_page, container, false)
+        val signInBtn : Button = view.findViewById(R.id.btn_to_login_fromRegister)
         nameEditText = view.findViewById(R.id.etNameSignUp)
         emailEditText = view.findViewById(R.id.etEmailSignUp)
         passwordEditText = view.findViewById(R.id.etPasswordSignUp)
         registerButton = view.findViewById(R.id.signUpBtnSignUp)
+
 
         auth = FirebaseAuth.getInstance()
         // Inflate the layout for this fragment
@@ -61,6 +64,9 @@ class SignUpPageFragment : Fragment() {
 
         registerButton.setOnClickListener {
             signUpUser()
+        }
+        signInBtn.setOnClickListener{ view ->
+            view.findNavController().navigate(R.id.signInPageFragment)
         }
         return  view
     }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BokApp</string>
+    <string name="titleBook">Titel</string>
+    <string name="author">Författare</string>
+    <string name="discover_books">Upptäck böcker</string>
+    <string name="new_books">Nya böcker</string>
+    <string name="to_read_list">Bäcker jag skaläsa</string>
+    <string name="check_read_list">"kolla lästa böcker "</string>
+    <string name="read_list">Böcker jag har läst</string>
+    <string name="check_to_read_list">kolla böcker jag ska läsa</string>
+    <string name="sign_out">Logga ut</string>
+    <string name="search">Sök</string>
+    <string name="password">Lösenord</string>
+    <string name="sign_in">Logga in</string>
+    <string name="don_t_have_an_account_sign_up_now">Har inget konto? Skapa ett konto!</string>
+    <string name="hello_again_welcome_back">Hej igen! Välkommen tillbaka</string>
+    <string name="hello_sign_up_to_get_started">Hej! Skapa ett konto!</string>
+    <string name="name">Namn</string>
+    <string name="passwordSignUp">Lösenord</string>
+    <string name="sign_up">Skapa konto</string>
+    <string name="already_have_an_account">Har redan ett konto?</string>
+</resources>
