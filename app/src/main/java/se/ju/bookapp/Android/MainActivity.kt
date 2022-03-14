@@ -14,6 +14,8 @@ import se.ju.bookapp.Android.fragments.MyBooksFragment
 import se.ju.bookapp.Android.fragments.ProfileFragment
 import se.ju.bookapp.Android.fragments.SearchFragment
 
+const val isLoggedIn = false
+
 class MainActivity : AppCompatActivity() {
 
 

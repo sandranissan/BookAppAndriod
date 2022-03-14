@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import se.ju.bookapp.Android.R
+import se.ju.bookapp.Android.isLoggedIn
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,6 +45,8 @@ class MyBooksFragment : Fragment() {
             val transaction = fragmentManager?.beginTransaction()
             transaction?.replace(R.id.fragmentContainerView,fragment)?.commit()
         }
+
+
 
 
         return view
