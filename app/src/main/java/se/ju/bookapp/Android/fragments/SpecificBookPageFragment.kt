@@ -5,6 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.navArgs
+import coil.load
+import coil.transform.CircleCropTransformation
+import kotlinx.android.synthetic.main.fragment_specific_book_page.*
+import se.ju.bookapp.Android.Model.VolumeInfo
 import se.ju.bookapp.Android.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,8 +40,12 @@ class SpecificBookPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_specific_book_page, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setupBookDetail()
     }
 
     companion object {
@@ -56,5 +66,50 @@ class SpecificBookPageFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    private fun setupBookDetail(){
+        val volumeInfo = arguments?.getParcelable<VolumeInfo>("volumeInfo")
+        if(volumeInfo!!.title != null) {
+            titleTv.text = volumeInfo.title
+        }
+
+        if (volumeInfo!!.authors != null){
+            authorTv.text = volumeInfo.authors.joinToString(", ")
+        }
+        else{
+            authorTv.text = "Unknown Author"
+        }
+
+        if (volumeInfo!!.description != null){
+            descriptionTv.text = volumeInfo.description
+        }
+        else{
+            descriptionTv.text = "Unknown"
+        }
+
+        if (volumeInfo!!.pageCount != null){
+            pageCountTv.text = "${volumeInfo.pageCount} pages"
+        }
+        else{
+            pageCountTv.text = "Unknown"
+        }
+
+        if (volumeInfo.imageLinks != null) {
+            var imageUrl = volumeInfo.imageLinks.thumbnail
+                .replace("http://", "https://")
+
+            bookCoverIv.load(imageUrl){
+                crossfade(true)
+                placeholder(R.drawable.ic_baseline_menu_book_24)
+                transformations(CircleCropTransformation())
+            }
+        }
+        else{
+            bookCoverIv.load("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"){
+                crossfade(true)
+                placeholder(R.drawable.ic_baseline_menu_book_24)
+                transformations(CircleCropTransformation())
+            }
+        }
     }
 }

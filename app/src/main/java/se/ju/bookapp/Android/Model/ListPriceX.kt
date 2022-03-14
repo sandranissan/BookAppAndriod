@@ -1,6 +1,6 @@
 package se.ju.bookapp.Android.Model
 
 data class ListPriceX(
-    val amountInMicros: Int,
+    val amountInMicros: Long,
     val currencyCode: String
 )
