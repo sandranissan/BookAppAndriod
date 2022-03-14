@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.findNavController
 import se.ju.bookapp.Android.R
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -22,8 +24,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProfileFragment : Fragment() {
-    private lateinit var mFirebaseAuth: FirebaseAuth
+
     // TODO: Rename and change types of parameters
+    private lateinit var auth: FirebaseAuth
     private var param1: String? = null
     private var param2: String? = null
 
@@ -39,23 +42,22 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
+
     ): View? {
+        auth = FirebaseAuth.getInstance()
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile2, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_profile2, container, false)
+        val signOutBtn : Button = view.findViewById(R.id.signOutBtn)
 
-    override fun onStart() {
-        super.onStart()
-
-        val mFirebaseUser: FirebaseUser? = mFirebaseAuth.currentUser
-
-        if(mFirebaseUser !=null){
-
-
-
+        signOutBtn.setOnClickListener {
+            auth.signOut()
+            view.findNavController().navigate(R.id.discoverFragment)
         }
+
+        return view
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
