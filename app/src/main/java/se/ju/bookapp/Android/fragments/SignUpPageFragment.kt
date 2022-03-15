@@ -78,18 +78,18 @@ class SignUpPageFragment : Fragment() {
 
         //validate
         if(name.isBlank() || email.isBlank() || password.isBlank()) {
-            Toast.makeText(requireActivity(), "Name, Email and password can't be blank",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), getString(R.string.NameEmailPassword),Toast.LENGTH_SHORT).show()
             return
         }
         //if name, email and password is okey
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(requireActivity()){ task ->
             if(task.isSuccessful) {
                 Log.d(TAG,"createUserWithEmail:success")
-                Toast.makeText(requireContext(), "Successfully Signed up", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.signUpSuccess), Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.discoverFragment)
 
             } else {
-                Toast.makeText(requireContext(), "Signed up failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.loginFailedMessage), Toast.LENGTH_SHORT).show()
             }
         }
     }

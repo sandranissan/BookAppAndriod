@@ -20,4 +20,13 @@
     <string name="passwordSignUp">Lösenord</string>
     <string name="sign_up">Skapa konto</string>
     <string name="already_have_an_account">Har redan ett konto?</string>
+    <string name="logInTooSeeBooks">Du måste logga in för att se dina böcker</string>
+    <string name="logIn">Du måste logga in</string>
+    <string name="loginFailedMessage">Skapa konto misslyckades, lösenordet måste innehålla minst en siffra</string>
+    <string name="signUpSuccess">Skapa konto lyckades</string>
+    <string name="NameEmailPassword">Namn, email och lösenord får inte vara tomt</string>
+    <string name="NameEmailPassword">N</string>
+    <string name="logInMessage">Logga in lyckades</string>
+    <string name="logInMessage">L</string>
+    <string name="logInFailMessage">Logga in misslyckades</string>
 </resources>

@@ -49,15 +49,14 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigation.setOnItemSelectedListener(){
             val isLoggedIn = Firebase.auth.currentUser
-            println("isLoggedI,  $isLoggedIn" )
-            println("User email, ${isLoggedIn?.email}")
+
             navController.navigate(it.itemId)
             when(it.itemId){
                 R.id.myBooksFragment -> {
                     if (isLoggedIn !=null){
                         navController.navigate(R.id.myBooksFragment)
                     } else {
-                        Toast.makeText(this, "You need to Log in to see you're books", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.logInTooSeeBooks), Toast.LENGTH_SHORT).show()
                         navController.navigate(R.id.signInPageFragment)
                     }
                 }
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                         navController.navigate(R.id.profileFragment)
 
                     } else {
-                        Toast.makeText(this, "You need to Log in", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.logIn), Toast.LENGTH_SHORT).show()
                         navController.navigate(R.id.signInPageFragment)
                     }
 

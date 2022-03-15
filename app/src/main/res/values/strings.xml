@@ -23,4 +23,11 @@
     <string name="passwordSignUp">Password</string>
     <string name="sign_up">Sign-up</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="logInTooSeeBooks">You need to Log in to see you\'re books</string>
+    <string name="logIn">You need to Log in</string>
+    <string name="loginFailedMessage">Signed up failed, password must contain at least one number</string>
+    <string name="signUpSuccess">Successfully Signed up</string>
+    <string name="NameEmailPassword">Name, Email and password can\'t be blank</string>
+    <string name="logInMessage">Successfully logged in</string>
+    <string name="logInFailMessage">Log in failed</string>
 </resources>
