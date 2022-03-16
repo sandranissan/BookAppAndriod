@@ -24,7 +24,8 @@ class SearchResultAdapter(private val bookClickListener: BookClickListener): Rec
         override fun onClick(p0: View?) {
             val position = adapterPosition
             val bookVolume = items[position].volumeInfo
-            bookClickListener.onItemClick(bookVolume)
+            val bookId = items[position].id
+            bookClickListener.onItemClick(bookVolume, bookId)
         }
     }
 

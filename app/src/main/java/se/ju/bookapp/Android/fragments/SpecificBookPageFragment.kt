@@ -1,6 +1,8 @@
 package se.ju.bookapp.Android.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,32 +11,17 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_specific_book_page.*
 import se.ju.bookapp.Android.Model.VolumeInfo
 import se.ju.bookapp.Android.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SpecificBookPageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SpecificBookPageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var auth = Firebase.auth.currentUser
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,30 +32,113 @@ class SpecificBookPageFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        setupBookDetail()
+
+        val volumeInfo = arguments?.getParcelable<VolumeInfo>("volumeInfo")
+        val bookId = arguments?.getString("bookId")
+
+        if (volumeInfo != null) {
+            setupBookDetail(volumeInfo)
+        }
+
+        addToMyWantToReadBtn.setOnClickListener{
+            if (volumeInfo != null && bookId != null) {
+                checkIfBookInToReadList(volumeInfo, bookId)
+            }
+        }
+
+        addToMyReadBtn.setOnClickListener{
+            if (volumeInfo != null && bookId != null){
+                checkIfBookInReadList(volumeInfo, bookId)
+            }
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SpecificBookPageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SpecificBookPageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun checkIfBookInToReadList(volumeInfo: VolumeInfo, bookId: String){
+        val docRef = db.collection("readList").document(auth!!.uid).collection("Books").document(bookId)
+        docRef.get()
+            .addOnSuccessListener {
+                if(it.exists()){
+                    println("BOOK IN READ-LIST")
+                    AlertDialog.Builder(this.context)
+                        .setTitle("Book exists in: Read List")
+                        .setMessage("Do you really want to add it to: To Read List")
+                        .setPositiveButton(
+                            "Yes"
+                        ) { _, _ ->
+                            addToToReadList(volumeInfo, bookId)
+                            deleteFromReadList(bookId)
+                        }.setNegativeButton(
+                            "No"
+                        ) { _, _ ->
+
+                        }.show()
+                }
+                else{
+                    addToToReadList(volumeInfo, bookId)
                 }
             }
+            .addOnFailureListener { exception ->
+                Log.d("Specific Book Page", "get failed with ", exception)
+            }
     }
-    private fun setupBookDetail(){
-        val volumeInfo = arguments?.getParcelable<VolumeInfo>("volumeInfo")
+
+    private fun checkIfBookInReadList(volumeInfo: VolumeInfo, bookId: String){
+        val docRef = db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId)
+        docRef.get()
+            .addOnSuccessListener {
+                if(it.exists()){
+                    println("BOOK IN TO-READ-LIST")
+                    AlertDialog.Builder(this.context)
+                        .setTitle("Book exists in: To Read List")
+                        .setMessage("Do you really want to add it to: Read List")
+                        .setPositiveButton(
+                            "Yes"
+                        ) { _, _ ->
+                            addToReadList(volumeInfo, bookId)
+                            deleteFromToReadList(bookId)
+                        }.setNegativeButton(
+                            "No"
+                        ) { _, _ ->
+
+                        }.show()
+                }
+                else{
+                    addToReadList(volumeInfo, bookId)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("Specific Book Page", "get failed with ", exception)
+            }
+    }
+
+    private fun addToToReadList(volumeInfo: VolumeInfo, bookId: String){
+        db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId).set(volumeInfo)
+            .addOnSuccessListener { Log.d("SpecificBookPage", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w("SpecificBookPage", "Error writing document", e) }
+    }
+
+    private fun addToReadList(volumeInfo: VolumeInfo, bookId: String){
+        db.collection("readList").document(auth!!.uid).collection("Books").document(bookId).set(volumeInfo)
+            .addOnSuccessListener { Log.d("SpecificBookPage", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w("SpecificBookPage", "Error writing document", e) }
+    }
+
+    private fun deleteFromReadList(bookId: String) {
+        db.collection("readList").document(auth!!.uid).collection("Books").document(bookId)
+            .delete()
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+    }
+
+    private fun deleteFromToReadList(bookId: String) {
+        db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId)
+            .delete()
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+    }
+
+
+    private fun setupBookDetail(volumeInfo: VolumeInfo){
         if(volumeInfo!!.title != null) {
             titleTv.text = volumeInfo.title
         }
@@ -101,14 +171,12 @@ class SpecificBookPageFragment : Fragment() {
             bookCoverIv.load(imageUrl){
                 crossfade(true)
                 placeholder(R.drawable.ic_baseline_menu_book_24)
-                transformations(CircleCropTransformation())
             }
         }
         else{
             bookCoverIv.load("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"){
                 crossfade(true)
                 placeholder(R.drawable.ic_baseline_menu_book_24)
-                transformations(CircleCropTransformation())
             }
         }
     }

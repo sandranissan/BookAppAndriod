@@ -10,7 +10,7 @@ interface GoogleBooksApi {
     @GET("/books/v1/volumes?q=lord+of+the+rings")
     suspend fun getBooks(): Response<BookSearchResult>
 
-    @GET("/books/v1/volumes")
+    @GET("/books/v1/volumes?printType=books")
     suspend fun getBooksByQuery(
         @Query("q") query: String
     ): Response<BookSearchResult>
