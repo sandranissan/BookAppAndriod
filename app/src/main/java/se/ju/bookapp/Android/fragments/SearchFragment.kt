@@ -149,10 +149,10 @@ class SearchFragment : Fragment(), BookClickListener {
         }
     }
 
-    override fun onItemClick(volumeInfo: VolumeInfo) {
+    override fun onItemClick(volumeInfo: VolumeInfo, bookId: String) {
         print("${volumeInfo.title}")
         Toast.makeText(context, volumeInfo.title, Toast.LENGTH_SHORT).show()
-        val bundle = bundleOf("volumeInfo" to volumeInfo)
+        val bundle = bundleOf("volumeInfo" to volumeInfo, "bookId" to bookId)
         findNavController().navigate(R.id.specificBookPageFragment, bundle)
     }
 }
