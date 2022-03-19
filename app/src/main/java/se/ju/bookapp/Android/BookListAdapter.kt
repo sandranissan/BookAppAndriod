@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import se.ju.bookapp.Android.SearchResultModel.Item
+import se.ju.bookapp.Android.BookListModel.ListItem
 import se.ju.bookapp.Android.databinding.BookItemBinding
 
-class SearchResultAdapter(private val searchResultClickListener: SearchResultClickListener): RecyclerView.Adapter<SearchResultAdapter.BookViewHolder>() {
+class BookListAdapter(private val bookListClickListener: BookListClickListener): RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
 
     inner class BookViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(binding.root),
         View.OnClickListener {
@@ -24,22 +24,22 @@ class SearchResultAdapter(private val searchResultClickListener: SearchResultCli
             val position = adapterPosition
             val bookVolume = items[position].volumeInfo
             val bookId = items[position].id
-            searchResultClickListener.onItemClick(bookVolume, bookId)
+            bookListClickListener.onItemClick(bookVolume, bookId)
         }
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Item>(){
-        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<ListItem>(){
+        override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+        override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var items: List<Item>
+    var items: List<ListItem>
         get() = differ.currentList
         set(value) { differ.submitList(value) }
 
@@ -64,15 +64,15 @@ class SearchResultAdapter(private val searchResultClickListener: SearchResultCli
             }
 
             if (book.volumeInfo.authors != null){
-                textViewAuthor.text = book.volumeInfo.authors.joinToString(", ")
+                textViewAuthor.text = book.volumeInfo.authors!!.joinToString(", ")
             }
             else{
                 textViewAuthor.text = "Unknown Author"
             }
 
             if (book.volumeInfo.imageLinks != null) {
-                var imageUrl = book.volumeInfo.imageLinks.thumbnail
-                    .replace("http://", "https://")
+                var imageUrl = book.volumeInfo.imageLinks!!.thumbnail
+                    ?.replace("http://", "https://")
 
                 imageViewBook.load(imageUrl){
                     crossfade(true)

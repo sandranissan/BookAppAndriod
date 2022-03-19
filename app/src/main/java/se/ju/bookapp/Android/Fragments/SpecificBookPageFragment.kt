@@ -1,4 +1,4 @@
-package se.ju.bookapp.Android.fragments
+package se.ju.bookapp.Android.Fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -7,15 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.navArgs
 import coil.load
-import coil.transform.CircleCropTransformation
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_specific_book_page.*
-import se.ju.bookapp.Android.Model.VolumeInfo
+import se.ju.bookapp.Android.BookListModel.ListImageLinks
+import se.ju.bookapp.Android.BookListModel.ListVolumeInfo
+import se.ju.bookapp.Android.SearchResultModel.VolumeInfo
 import se.ju.bookapp.Android.R
 
 
@@ -34,26 +33,42 @@ class SpecificBookPageFragment : Fragment() {
         super.onStart()
 
         val volumeInfo = arguments?.getParcelable<VolumeInfo>("volumeInfo")
+        var listVolumeInfo = arguments?.getParcelable<ListVolumeInfo>("listVolumeInfo")
         val bookId = arguments?.getString("bookId")
 
-        if (volumeInfo != null) {
-            setupBookDetail(volumeInfo)
+        if(volumeInfo != null){
+            var bookThumbnails = ListImageLinks(volumeInfo.imageLinks.smallThumbnail, volumeInfo.imageLinks.thumbnail)
+            listVolumeInfo = ListVolumeInfo(
+            volumeInfo.authors,
+            volumeInfo.description,
+            bookThumbnails,
+            volumeInfo.language,
+            volumeInfo.pageCount,
+            volumeInfo.publishedDate,
+            volumeInfo.publisher,
+            volumeInfo.subtitle,
+            volumeInfo.title)
+        }
+
+        if (listVolumeInfo != null) {
+
+            setupBookDetail(listVolumeInfo)
         }
 
         addToMyWantToReadBtn.setOnClickListener{
-            if (volumeInfo != null && bookId != null) {
-                checkIfBookInToReadList(volumeInfo, bookId)
+            if (listVolumeInfo != null && bookId != null) {
+                    checkIfBookInToReadList(listVolumeInfo, bookId)
             }
         }
 
         addToMyReadBtn.setOnClickListener{
-            if (volumeInfo != null && bookId != null){
-                checkIfBookInReadList(volumeInfo, bookId)
+            if (listVolumeInfo != null && bookId != null){
+                checkIfBookInReadList(listVolumeInfo, bookId)
             }
         }
     }
 
-    private fun checkIfBookInToReadList(volumeInfo: VolumeInfo, bookId: String){
+    private fun checkIfBookInToReadList(volumeInfo: ListVolumeInfo, bookId: String){
         val docRef = db.collection("readList").document(auth!!.uid).collection("Books").document(bookId)
         docRef.get()
             .addOnSuccessListener {
@@ -82,7 +97,7 @@ class SpecificBookPageFragment : Fragment() {
             }
     }
 
-    private fun checkIfBookInReadList(volumeInfo: VolumeInfo, bookId: String){
+    private fun checkIfBookInReadList(listVolumeInfo: ListVolumeInfo, bookId: String){
         val docRef = db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId)
         docRef.get()
             .addOnSuccessListener {
@@ -94,7 +109,7 @@ class SpecificBookPageFragment : Fragment() {
                         .setPositiveButton(
                             "Yes"
                         ) { _, _ ->
-                            addToReadList(volumeInfo, bookId)
+                            addToReadList(listVolumeInfo, bookId)
                             deleteFromToReadList(bookId)
                         }.setNegativeButton(
                             "No"
@@ -103,7 +118,7 @@ class SpecificBookPageFragment : Fragment() {
                         }.show()
                 }
                 else{
-                    addToReadList(volumeInfo, bookId)
+                    addToReadList(listVolumeInfo, bookId)
                 }
             }
             .addOnFailureListener { exception ->
@@ -111,14 +126,14 @@ class SpecificBookPageFragment : Fragment() {
             }
     }
 
-    private fun addToToReadList(volumeInfo: VolumeInfo, bookId: String){
-        db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId).set(volumeInfo)
+    private fun addToToReadList(listVolumeInfo: ListVolumeInfo, bookId: String){
+        db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId).set(listVolumeInfo)
             .addOnSuccessListener { Log.d("SpecificBookPage", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w("SpecificBookPage", "Error writing document", e) }
     }
 
-    private fun addToReadList(volumeInfo: VolumeInfo, bookId: String){
-        db.collection("readList").document(auth!!.uid).collection("Books").document(bookId).set(volumeInfo)
+    private fun addToReadList(listVolumeInfo: ListVolumeInfo, bookId: String){
+        db.collection("readList").document(auth!!.uid).collection("Books").document(bookId).set(listVolumeInfo)
             .addOnSuccessListener { Log.d("SpecificBookPage", "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w("SpecificBookPage", "Error writing document", e) }
     }
@@ -138,35 +153,35 @@ class SpecificBookPageFragment : Fragment() {
     }
 
 
-    private fun setupBookDetail(volumeInfo: VolumeInfo){
-        if(volumeInfo!!.title != null) {
-            titleTv.text = volumeInfo.title
+    private fun setupBookDetail(listVolumeInfo: ListVolumeInfo?){
+        if(listVolumeInfo!!.title != null) {
+            titleTv.text = listVolumeInfo.title
         }
 
-        if (volumeInfo!!.authors != null){
-            authorTv.text = volumeInfo.authors.joinToString(", ")
+        if (listVolumeInfo!!.authors != null){
+            authorTv.text = listVolumeInfo.authors?.joinToString(", ")
         }
         else{
             authorTv.text = "Unknown Author"
         }
 
-        if (volumeInfo!!.description != null){
-            descriptionTv.text = volumeInfo.description
+        if (listVolumeInfo!!.description != null){
+            descriptionTv.text = listVolumeInfo.description
         }
         else{
             descriptionTv.text = "Unknown"
         }
 
-        if (volumeInfo!!.pageCount != null){
-            pageCountTv.text = "${volumeInfo.pageCount} pages"
+        if (listVolumeInfo!!.pageCount != null){
+            pageCountTv.text = "${listVolumeInfo.pageCount} pages"
         }
         else{
             pageCountTv.text = "Unknown"
         }
 
-        if (volumeInfo.imageLinks != null) {
-            var imageUrl = volumeInfo.imageLinks.thumbnail
-                .replace("http://", "https://")
+        if (listVolumeInfo.imageLinks != null) {
+            var imageUrl = listVolumeInfo.imageLinks!!.thumbnail
+                ?.replace("http://", "https://")
 
             bookCoverIv.load(imageUrl){
                 crossfade(true)

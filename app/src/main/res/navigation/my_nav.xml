@@ -7,22 +7,26 @@
 
     <fragment
         android:id="@+id/discoverFragment"
-        android:name="se.ju.bookapp.Android.fragments.DiscoverFragment"
+        android:name="se.ju.bookapp.Android.Fragments.DiscoverFragment"
         android:label="fragment_discover"
         tools:layout="@layout/fragment_discover" />
     <fragment
-        android:id="@+id/myBooksFragment"
-        android:name="se.ju.bookapp.Android.fragments.MyBooksFragment"
+        android:id="@+id/toReadBooksFragment"
+        android:name="se.ju.bookapp.Android.Fragments.ToReadBooksFragment"
         android:label="fragment_my_books"
-        tools:layout="@layout/fragment_my_books" />
+        tools:layout="@layout/fragment_to_read_books" >
+        <action
+            android:id="@+id/action_myBooksFragment_to_specificBookPageFragment"
+            app:destination="@id/specificBookPageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="se.ju.bookapp.Android.fragments.ProfileFragment"
+        android:name="se.ju.bookapp.Android.Fragments.ProfileFragment"
         android:label="fragment_profile2"
-        tools:layout="@layout/fragment_profile2" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="se.ju.bookapp.Android.fragments.SearchFragment"
+        android:name="se.ju.bookapp.Android.Fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -31,21 +35,33 @@
     </fragment>
     <fragment
         android:id="@+id/specificBookPageFragment"
-        android:name="se.ju.bookapp.Android.fragments.SpecificBookPageFragment"
+        android:name="se.ju.bookapp.Android.Fragments.SpecificBookPageFragment"
         android:label="fragment_specific_book_page"
         tools:layout="@layout/fragment_specific_book_page" >
         <argument
             android:name="volumeInfo"
             app:argType="android.support.v4.media.session.ParcelableVolumeInfo" />
+        <argument
+            android:name="ListVolumeInfo"
+            app:argType="se.ju.bookapp.Android.BookListModel.ListVolumeInfo" />
     </fragment>
     <fragment
         android:id="@+id/signInPageFragment"
-        android:name="se.ju.bookapp.Android.fragments.SignInPageFragment"
+        android:name="se.ju.bookapp.Android.Fragments.SignInPageFragment"
         android:label="fragment_sign_in_page"
         tools:layout="@layout/fragment_sign_in_page" />
     <fragment
         android:id="@+id/signUpPageFragment"
-        android:name="se.ju.bookapp.Android.fragments.SignUpPageFragment"
+        android:name="se.ju.bookapp.Android.Fragments.SignUpPageFragment"
         android:label="fragment_sign_up_page"
         tools:layout="@layout/fragment_sign_up_page" />
+    <fragment
+        android:id="@+id/readBooksFragment"
+        android:name="se.ju.bookapp.Android.Fragments.ReadBooksFragment"
+        android:label="fragment_read_books"
+        tools:layout="@layout/fragment_read_books">
+        <action
+            android:id="@+id/action_readBooksFragment_to_specificBookPageFragment"
+            app:destination="@id/specificBookPageFragment" />
+    </fragment>
 </navigation>
