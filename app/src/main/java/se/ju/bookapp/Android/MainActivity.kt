@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
             println("User email, ${isLoggedIn?.email}")
             navController.navigate(it.itemId)
             when (it.itemId) {
-                R.id.myBooksFragment -> {
+                R.id.toReadBooksFragment -> {
                     if (isLoggedIn != null) {
-                        navController.navigate(R.id.myBooksFragment)
+                        navController.navigate(R.id.toReadBooksFragment)
                     } else {
                         Toast.makeText(
                             this,

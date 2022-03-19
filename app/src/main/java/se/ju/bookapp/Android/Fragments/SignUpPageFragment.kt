@@ -1,4 +1,4 @@
-package se.ju.bookapp.Android.fragments
+package se.ju.bookapp.Android.Fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import se.ju.bookapp.Android.R
 

@@ -1,9 +1,7 @@
-package se.ju.bookapp.Android.fragments
+package se.ju.bookapp.Android.Fragments
 import android.widget.Toast
 import android.content.Intent
 import android.os.Bundle
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 
 import com.facebook.AccessToken
-import com.google.firebase.ktx.Firebase
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -23,8 +20,6 @@ import com.facebook.login.widget.LoginButton
 import com.google.firebase.auth.FacebookAuthProvider
 import se.ju.bookapp.Android.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 import kotlinx.android.synthetic.main.fragment_sign_in_page.*

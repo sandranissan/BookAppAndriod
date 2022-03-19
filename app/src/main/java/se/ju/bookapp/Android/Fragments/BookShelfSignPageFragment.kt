@@ -1,11 +1,10 @@
-package se.ju.bookapp.Android.fragments
+package se.ju.bookapp.Android.Fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import se.ju.bookapp.Android.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -15,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MyReadBooksFragment.newInstance] factory method to
+ * Use the [BookShelfSignPageFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MyReadBooksFragment : Fragment() {
+class BookShelfSignPageFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,16 +35,7 @@ class MyReadBooksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_my_read_books, container, false)
-        val prevBtn : Button = view.findViewById(R.id.toRead)
-
-        prevBtn.setOnClickListener {
-            val fragment = MyBooksFragment()
-            val transaction = fragmentManager?.beginTransaction()
-            transaction?.replace(R.id.fragmentContainerView, fragment)?.commit()
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_book_shelf_sign_page, container, false)
     }
 
     companion object {
@@ -55,12 +45,12 @@ class MyReadBooksFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MyReadBooksFragment.
+         * @return A new instance of fragment BookShelfSignPageFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MyReadBooksFragment().apply {
+            BookShelfSignPageFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

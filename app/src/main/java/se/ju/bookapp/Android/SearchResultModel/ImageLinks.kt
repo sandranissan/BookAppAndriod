@@ -1,4 +1,4 @@
-package se.ju.bookapp.Android.Model
+package se.ju.bookapp.Android.SearchResultModel
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

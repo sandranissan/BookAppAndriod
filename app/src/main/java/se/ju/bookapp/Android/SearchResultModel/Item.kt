@@ -1,4 +1,4 @@
-package se.ju.bookapp.Android.Model
+package se.ju.bookapp.Android.SearchResultModel
 
 data class Item(
     val id: String,
