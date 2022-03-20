@@ -3,6 +3,7 @@ package se.ju.bookapp.Android
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -57,18 +58,15 @@ class SearchResultAdapter(private val searchResultClickListener: SearchResultCli
         holder.binding.apply {
             val book = items[position]
 
-            textViewId.text = book.id
-
-            if (book.volumeInfo.title != null){
+            if (book.volumeInfo.title.isNullOrEmpty())
+                textViewTitle.isVisible = false
+            else
                 textViewTitle.text = book.volumeInfo.title
-            }
 
-            if (book.volumeInfo.authors != null){
+            if (book.volumeInfo.authors.isNullOrEmpty())
+                textViewAuthor.isVisible = false
+            else
                 textViewAuthor.text = book.volumeInfo.authors.joinToString(", ")
-            }
-            else{
-                textViewAuthor.text = "Unknown Author"
-            }
 
             if (book.volumeInfo.imageLinks != null) {
                 var imageUrl = book.volumeInfo.imageLinks.thumbnail
