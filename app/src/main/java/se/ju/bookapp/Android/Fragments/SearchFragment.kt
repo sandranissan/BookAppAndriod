@@ -73,6 +73,7 @@ class SearchFragment : Fragment(), SearchResultClickListener {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 if (query != null) {
+                    searchBook(query).cancel()
                     searchBook(query)
                 }
                 return true
@@ -81,10 +82,9 @@ class SearchFragment : Fragment(), SearchResultClickListener {
         })
     }
 
-    private fun searchBook (query: String) {
-        val urlQuery = query.replace(" ", "+")
-
+    private fun searchBook (query: String) =
         lifecycleScope.launchWhenCreated {
+            val urlQuery = query.replace(" ", "+")
             binding.progressBar.isVisible = true
             val response = try {
                 RetrofitInstance.api.getBooksByQuery(urlQuery)
@@ -108,12 +108,24 @@ class SearchFragment : Fragment(), SearchResultClickListener {
             }
             binding.progressBar.isVisible = false
         }
-    }
 
     override fun onItemClick(volumeInfo: VolumeInfo, bookId: String) {
-        Toast.makeText(context, volumeInfo.title, Toast.LENGTH_SHORT).show()
-        val bundle = bundleOf("volumeInfo" to volumeInfo, "bookId" to bookId)
+        var bookVolumeInfo = checkIfVolumeInfoNull(volumeInfo)
+        val bundle = bundleOf("volumeInfo" to bookVolumeInfo, "bookId" to bookId)
         findNavController().navigate(R.id.specificBookPageFragment, bundle)
+    }
+
+    private fun checkIfVolumeInfoNull(volumeInfo: VolumeInfo): VolumeInfo{
+        if(volumeInfo.authors.isNullOrEmpty())
+            volumeInfo.authors = listOf()
+        if(volumeInfo.title.isNullOrEmpty())
+            volumeInfo.title = ""
+        if(volumeInfo.imageLinks.thumbnail.isNullOrEmpty())
+            volumeInfo.imageLinks.thumbnail = "https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"
+        if(volumeInfo.description.isNullOrEmpty()){
+            volumeInfo.description = ""
+        }
+        return volumeInfo
     }
 }
 

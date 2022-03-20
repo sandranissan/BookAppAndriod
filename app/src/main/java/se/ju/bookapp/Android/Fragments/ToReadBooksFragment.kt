@@ -68,13 +68,15 @@ class ToReadBooksFragment : Fragment(), BookListClickListener {
                         bookList.add(bookItem)
                     }
                     bookListAdapter.items = bookList
-                    loadingProgressBar.isVisible = false
-                    readButton.isVisible = true
+                    if(loadingProgressBar != null)
+                        loadingProgressBar.isVisible = false
+//                    readButton.isVisible = true
                 }
                 .addOnFailureListener { exception ->
                     Log.d("My TO Read Books Page", "get failed with ", exception)
-                    loadingProgressBar.isVisible = false
-                    readButton.isVisible = true
+                    if(loadingProgressBar != null)
+                        loadingProgressBar.isVisible = false
+//                    readButton.isVisible = true
                 }
         }
     }

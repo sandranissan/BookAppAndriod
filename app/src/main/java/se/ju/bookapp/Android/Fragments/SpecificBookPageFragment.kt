@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import coil.load
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,16 +38,12 @@ class SpecificBookPageFragment : Fragment() {
         val bookId = arguments?.getString("bookId")
 
         if(volumeInfo != null){
-            var bookThumbnails = ListImageLinks(volumeInfo.imageLinks.smallThumbnail, volumeInfo.imageLinks.thumbnail)
+            var bookThumbnails = ListImageLinks(volumeInfo.imageLinks.thumbnail)
             listVolumeInfo = ListVolumeInfo(
             volumeInfo.authors,
             volumeInfo.description,
             bookThumbnails,
-            volumeInfo.language,
             volumeInfo.pageCount,
-            volumeInfo.publishedDate,
-            volumeInfo.publisher,
-            volumeInfo.subtitle,
             volumeInfo.title)
         }
 
@@ -154,45 +151,35 @@ class SpecificBookPageFragment : Fragment() {
 
 
     private fun setupBookDetail(listVolumeInfo: ListVolumeInfo?){
-        if(listVolumeInfo!!.title != null) {
-            titleTv.text = listVolumeInfo.title
-        }
 
-        if (listVolumeInfo!!.authors != null){
-            authorTv.text = listVolumeInfo.authors?.joinToString(", ")
-        }
-        else{
-            authorTv.text = "Unknown Author"
-        }
+        println(listVolumeInfo)
 
-        if (listVolumeInfo!!.description != null){
-            descriptionTv.text = listVolumeInfo.description
+        if(listVolumeInfo?.title.isNullOrEmpty()){
+            titleTv.isVisible = false
         }
-        else{
-            descriptionTv.text = "Unknown"
-        }
+        titleTv.text = listVolumeInfo?.title
 
-        if (listVolumeInfo!!.pageCount != null){
-            pageCountTv.text = "${listVolumeInfo.pageCount} pages"
+        if(listVolumeInfo?.authors.isNullOrEmpty()){
+            authorTv.isVisible = false
         }
-        else{
-            pageCountTv.text = "Unknown"
-        }
+        authorTv.text = listVolumeInfo?.authors?.joinToString(", ")
 
-        if (listVolumeInfo.imageLinks != null) {
-            var imageUrl = listVolumeInfo.imageLinks!!.thumbnail
-                ?.replace("http://", "https://")
-
-            bookCoverIv.load(imageUrl){
-                crossfade(true)
-                placeholder(R.drawable.ic_baseline_menu_book_24)
-            }
+        if(listVolumeInfo?.description.isNullOrEmpty()){
+            descriptionTv.isVisible = false
         }
-        else{
-            bookCoverIv.load("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"){
-                crossfade(true)
-                placeholder(R.drawable.ic_baseline_menu_book_24)
-            }
+        descriptionTv.text = listVolumeInfo?.description
+
+        if (listVolumeInfo?.pageCount == 0){
+            pageCountTv.isVisible = false
+        }
+        pageCountTv.text = "${listVolumeInfo?.pageCount} pages"
+
+        var imageUrl = listVolumeInfo?.imageLinks?.thumbnail
+            ?.replace("http://", "https://")
+
+        bookCoverIv.load(imageUrl){
+            crossfade(true)
+            placeholder(R.drawable.ic_baseline_menu_book_24)
         }
     }
 }

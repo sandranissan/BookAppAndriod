@@ -5,6 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ListImageLinks(
-    var smallThumbnail: String? = null,
     var thumbnail: String? = null
 ): Parcelable
