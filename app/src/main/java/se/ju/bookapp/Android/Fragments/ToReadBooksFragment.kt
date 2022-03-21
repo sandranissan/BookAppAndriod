@@ -1,5 +1,6 @@
 package se.ju.bookapp.Android.Fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -70,13 +71,11 @@ class ToReadBooksFragment : Fragment(), BookListClickListener {
                     bookListAdapter.items = bookList
                     if(loadingProgressBar != null)
                         loadingProgressBar.isVisible = false
-//                    readButton.isVisible = true
                 }
                 .addOnFailureListener { exception ->
                     Log.d("My TO Read Books Page", "get failed with ", exception)
                     if(loadingProgressBar != null)
                         loadingProgressBar.isVisible = false
-//                    readButton.isVisible = true
                 }
         }
     }
@@ -91,5 +90,28 @@ class ToReadBooksFragment : Fragment(), BookListClickListener {
     override fun onItemClick(listVolumeInfo: ListVolumeInfo, bookId: String) {
         val bundle = bundleOf("listVolumeInfo" to listVolumeInfo, "bookId" to bookId)
         findNavController().navigate(R.id.specificBookPageFragment, bundle)
+    }
+
+    override fun onItemLongClick(listVolumeInfo: ListVolumeInfo, bookId: String) {
+        AlertDialog.Builder(this.context)
+            .setTitle("Would you like to remove book from list?")
+            .setMessage("Would you like to ${listVolumeInfo.title} from \"To Read List\"?")
+            .setPositiveButton(
+                "Yes"
+            ) { _, _ ->
+                deleteFromToReadList(bookId)
+                findNavController().navigate(R.id.toReadBooksFragment)
+            }.setNegativeButton(
+                "No"
+            ) { _, _ ->
+
+            }.show()
+    }
+
+    private fun deleteFromToReadList(bookId: String) {
+        db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId)
+            .delete()
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
     }
 }

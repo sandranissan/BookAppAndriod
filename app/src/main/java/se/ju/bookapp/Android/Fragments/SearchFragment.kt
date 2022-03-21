@@ -19,6 +19,7 @@ import se.ju.bookapp.Android.SearchResultClickListener
 import se.ju.bookapp.Android.SearchResultModel.VolumeInfo
 import se.ju.bookapp.Android.R
 import se.ju.bookapp.Android.SearchResultAdapter
+import se.ju.bookapp.Android.SearchResultModel.ImageLinks
 import se.ju.bookapp.Android.databinding.FragmentSearchBinding
 import java.io.IOException
 
@@ -40,22 +41,17 @@ class SearchFragment : Fragment(), SearchResultClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        println("SearchFragment: onCreateView")
-
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-
-        println("SearchFragment: onStart")
         setupRecyclerView()
         setupSearchView()
     }
 
     private fun setupRecyclerView() = binding.searchResultRecyclerView.apply {
-        println("SearchFragment: setUpRecyclerView")
         searchResultAdapter = SearchResultAdapter(this@SearchFragment)
         adapter = searchResultAdapter
         layoutManager = LinearLayoutManager(this@SearchFragment.context)
@@ -110,22 +106,8 @@ class SearchFragment : Fragment(), SearchResultClickListener {
         }
 
     override fun onItemClick(volumeInfo: VolumeInfo, bookId: String) {
-        var bookVolumeInfo = checkIfVolumeInfoNull(volumeInfo)
-        val bundle = bundleOf("volumeInfo" to bookVolumeInfo, "bookId" to bookId)
+        val bundle = bundleOf("volumeInfo" to volumeInfo, "bookId" to bookId)
         findNavController().navigate(R.id.specificBookPageFragment, bundle)
-    }
-
-    private fun checkIfVolumeInfoNull(volumeInfo: VolumeInfo): VolumeInfo{
-        if(volumeInfo.authors.isNullOrEmpty())
-            volumeInfo.authors = listOf()
-        if(volumeInfo.title.isNullOrEmpty())
-            volumeInfo.title = ""
-        if(volumeInfo.imageLinks.thumbnail.isNullOrEmpty())
-            volumeInfo.imageLinks.thumbnail = "https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"
-        if(volumeInfo.description.isNullOrEmpty()){
-            volumeInfo.description = ""
-        }
-        return volumeInfo
     }
 }
 
