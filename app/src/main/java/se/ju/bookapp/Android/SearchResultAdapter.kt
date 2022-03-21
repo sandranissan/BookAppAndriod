@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import se.ju.bookapp.Android.SearchResultModel.ImageLinks
 import se.ju.bookapp.Android.SearchResultModel.Item
+import se.ju.bookapp.Android.SearchResultModel.VolumeInfo
 import se.ju.bookapp.Android.databinding.BookItemBinding
 
 class SearchResultAdapter(private val searchResultClickListener: SearchResultClickListener): RecyclerView.Adapter<SearchResultAdapter.BookViewHolder>() {
@@ -58,18 +60,20 @@ class SearchResultAdapter(private val searchResultClickListener: SearchResultCli
         holder.binding.apply {
             val book = items[position]
 
-            if (book.volumeInfo.title.isNullOrEmpty())
+            var volumeInfo = checkIfVolumeInfoNull(book.volumeInfo)
+
+            if (volumeInfo.title.isNullOrEmpty())
                 textViewTitle.isVisible = false
             else
                 textViewTitle.text = book.volumeInfo.title
 
-            if (book.volumeInfo.authors.isNullOrEmpty())
+            if (volumeInfo.authors.isNullOrEmpty())
                 textViewAuthor.isVisible = false
             else
                 textViewAuthor.text = book.volumeInfo.authors.joinToString(", ")
 
-            if (book.volumeInfo.imageLinks != null) {
-                var imageUrl = book.volumeInfo.imageLinks.thumbnail
+            if (volumeInfo.imageLinks != null) {
+                var imageUrl = book.volumeInfo.imageLinks!!.thumbnail
                     .replace("http://", "https://")
 
                 imageViewBook.load(imageUrl){
@@ -78,13 +82,21 @@ class SearchResultAdapter(private val searchResultClickListener: SearchResultCli
                     transformations(CircleCropTransformation())
                 }
             }
-            else{
-                imageViewBook.load("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"){
-                    crossfade(true)
-                    placeholder(R.drawable.ic_baseline_menu_book_24)
-                    transformations(CircleCropTransformation())
-                }
-            }
         }
+    }
+
+    private fun checkIfVolumeInfoNull(volumeInfo: VolumeInfo): VolumeInfo {
+        if(volumeInfo.authors.isNullOrEmpty())
+            volumeInfo.authors = listOf()
+        if(volumeInfo.title.isNullOrEmpty())
+            volumeInfo.title = ""
+        if(volumeInfo.imageLinks == null){
+            var imageLink: ImageLinks = ImageLinks("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png")
+            volumeInfo.imageLinks = imageLink
+        }
+        if(volumeInfo.description.isNullOrEmpty()){
+            volumeInfo.description = ""
+        }
+        return volumeInfo
     }
 }

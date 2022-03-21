@@ -15,10 +15,11 @@ import se.ju.bookapp.Android.databinding.BookItemBinding
 class BookListAdapter(private val bookListClickListener: BookListClickListener): RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
 
     inner class BookViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+        View.OnClickListener, View.OnLongClickListener {
 
         init {
             binding.root.setOnClickListener(this)
+            binding.root.setOnLongClickListener(this)
         }
 
         override fun onClick(p0: View?) {
@@ -26,6 +27,14 @@ class BookListAdapter(private val bookListClickListener: BookListClickListener):
             val bookVolume = items[position].volumeInfo
             val bookId = items[position].id
             bookListClickListener.onItemClick(bookVolume, bookId)
+        }
+
+        override fun onLongClick(p0: View?): Boolean {
+            val position = adapterPosition
+            val bookVolume = items[position].volumeInfo
+            val bookId = items[position].id
+            bookListClickListener.onItemLongClick(bookVolume, bookId)
+            return true
         }
     }
 

@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class VolumeInfo(
     var authors: List<String>,
     var description: String,
-    val imageLinks: ImageLinks,
+    var imageLinks: ImageLinks?,
     var pageCount: Int,
     var title: String
 ): Parcelable

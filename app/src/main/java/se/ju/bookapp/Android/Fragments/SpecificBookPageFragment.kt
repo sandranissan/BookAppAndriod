@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,7 +40,7 @@ class SpecificBookPageFragment : Fragment() {
         val bookId = arguments?.getString("bookId")
 
         if(volumeInfo != null){
-            var bookThumbnails = ListImageLinks(volumeInfo.imageLinks.thumbnail)
+            var bookThumbnails = ListImageLinks(volumeInfo.imageLinks?.thumbnail)
             listVolumeInfo = ListVolumeInfo(
             volumeInfo.authors,
             volumeInfo.description,
@@ -53,16 +55,41 @@ class SpecificBookPageFragment : Fragment() {
         }
 
         addToMyWantToReadBtn.setOnClickListener{
-            if (listVolumeInfo != null && bookId != null) {
+            if(auth != null){
+                if (listVolumeInfo != null && bookId != null) {
                     checkIfBookInToReadList(listVolumeInfo, bookId)
+                }
+            }
+            else{
+                logInDialog()
             }
         }
 
         addToMyReadBtn.setOnClickListener{
-            if (listVolumeInfo != null && bookId != null){
-                checkIfBookInReadList(listVolumeInfo, bookId)
+            if(auth != null){
+                if (listVolumeInfo != null && bookId != null){
+                    checkIfBookInReadList(listVolumeInfo, bookId)
+                }
+            }
+            else{
+                logInDialog()
             }
         }
+    }
+
+    private fun logInDialog(){
+        AlertDialog.Builder(this.context)
+            .setTitle("You need to sign in to to add book to list")
+            .setMessage("Would you like to sign in?")
+            .setPositiveButton(
+                "Yes"
+            ) { _, _ ->
+                findNavController().navigate(R.id.signInPageFragment)
+            }.setNegativeButton(
+                "No"
+            ) { _, _ ->
+
+            }.show()
     }
 
     private fun checkIfBookInToReadList(volumeInfo: ListVolumeInfo, bookId: String){
@@ -125,14 +152,26 @@ class SpecificBookPageFragment : Fragment() {
 
     private fun addToToReadList(listVolumeInfo: ListVolumeInfo, bookId: String){
         db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId).set(listVolumeInfo)
-            .addOnSuccessListener { Log.d("SpecificBookPage", "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w("SpecificBookPage", "Error writing document", e) }
+            .addOnSuccessListener {
+                Log.d("SpecificBookPage", "DocumentSnapshot successfully written!")
+                Toast.makeText(this.context, "Book added to \"To Read list\"", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                    e -> Log.w("SpecificBookPage", "Error writing document", e)
+                    Toast.makeText(this.context, "Failed to add book to \"To Read list\"", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun addToReadList(listVolumeInfo: ListVolumeInfo, bookId: String){
         db.collection("readList").document(auth!!.uid).collection("Books").document(bookId).set(listVolumeInfo)
-            .addOnSuccessListener { Log.d("SpecificBookPage", "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w("SpecificBookPage", "Error writing document", e) }
+            .addOnSuccessListener {
+                Log.d("SpecificBookPage", "DocumentSnapshot successfully written!")
+                Toast.makeText(this.context, "Book added to \"Read list\"", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                    e -> Log.w("SpecificBookPage", "Error writing document", e)
+                    Toast.makeText(this.context, "Failed to add book to \"Read list\"", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun deleteFromReadList(bookId: String) {

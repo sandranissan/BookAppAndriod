@@ -10,4 +10,7 @@ interface GoogleBooksApi {
     suspend fun getBooksByQuery(
         @Query("q") query: String
     ): Response<BookSearchResult>
+
+    @GET("/books/v1/users/104050535116810189323/bookshelves/1001/volumes")
+    suspend fun getPopularBooks(): Response<BookSearchResult>
 }
