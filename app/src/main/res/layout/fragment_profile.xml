@@ -4,20 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ProfileFragment">
-
-<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;
-    <TextView
-        android:id="@+id/profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="36sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBaseline_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />-->
+    tools:context=".Fragments.ProfileFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -27,9 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BOOKSHELF"
+            android:textStyle="bold"
             android:paddingTop="15sp"
             android:textColor="@color/black"
-            android:textSize="40sp"
+            android:textSize="25sp"
             android:layout_gravity="top|center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,27 +31,47 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:text="Logged in as:"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/userEmailTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15sp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:paddingBottom="110dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/signOutBtn"
                 android:layout_width="250sp"
                 android:layout_height="60sp"
                 android:backgroundTint="#f70d1a"
+<<<<<<< HEAD:app/src/main/res/layout/fragment_profile2.xml
                 android:text="@string/sign_out"
+=======
+                android:layout_gravity="center_horizontal"
+                android:text="Sign out"
+>>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd:app/src/main/res/layout/fragment_profile.xml
                 android:textColor="@color/white"
                 android:textSize="30sp">
 
             </Button>
         </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/loadingProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:layout_width="48dp"
-            android:layout_height="48dp" />
-
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

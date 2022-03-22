@@ -1,4 +1,4 @@
-package se.ju.bookapp.Android.fragments
+package se.ju.bookapp.Android.Fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -10,22 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import se.ju.bookapp.Android.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUpPageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignUpPageFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var emailEditText : EditText;
@@ -34,15 +22,9 @@ class SignUpPageFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var registerButton : Button
     private lateinit var auth: FirebaseAuth
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -60,7 +42,6 @@ class SignUpPageFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         // Inflate the layout for this fragment
-
 
         registerButton.setOnClickListener {
             signUpUser()
@@ -92,25 +73,5 @@ class SignUpPageFragment : Fragment() {
                 Toast.makeText(requireContext(), getString(R.string.loginFailedMessage), Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUpPageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUpPageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

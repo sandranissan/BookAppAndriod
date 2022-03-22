@@ -9,40 +9,47 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import se.ju.bookapp.Android.SearchResultModel.ImageLinks
-import se.ju.bookapp.Android.SearchResultModel.Item
-import se.ju.bookapp.Android.SearchResultModel.VolumeInfo
+import se.ju.bookapp.Android.BookListModel.ListItem
 import se.ju.bookapp.Android.databinding.BookItemBinding
 
-class SearchResultAdapter(private val searchResultClickListener: SearchResultClickListener): RecyclerView.Adapter<SearchResultAdapter.BookViewHolder>() {
+class BookListAdapter(private val bookListClickListener: BookListClickListener): RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
 
     inner class BookViewHolder(val binding: BookItemBinding) : RecyclerView.ViewHolder(binding.root),
-        View.OnClickListener {
+        View.OnClickListener, View.OnLongClickListener {
 
         init {
             binding.root.setOnClickListener(this)
+            binding.root.setOnLongClickListener(this)
         }
 
         override fun onClick(p0: View?) {
             val position = adapterPosition
             val bookVolume = items[position].volumeInfo
             val bookId = items[position].id
-            searchResultClickListener.onItemClick(bookVolume, bookId)
+            bookListClickListener.onItemClick(bookVolume, bookId)
+        }
+
+        override fun onLongClick(p0: View?): Boolean {
+            val position = adapterPosition
+            val bookVolume = items[position].volumeInfo
+            val bookId = items[position].id
+            bookListClickListener.onItemLongClick(bookVolume, bookId)
+            return true
         }
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Item>(){
-        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<ListItem>(){
+        override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+        override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var items: List<Item>
+    var items: List<ListItem>
         get() = differ.currentList
         set(value) { differ.submitList(value) }
 
@@ -60,21 +67,19 @@ class SearchResultAdapter(private val searchResultClickListener: SearchResultCli
         holder.binding.apply {
             val book = items[position]
 
-            var volumeInfo = checkIfVolumeInfoNull(book.volumeInfo)
-
-            if (volumeInfo.title.isNullOrEmpty())
+            if (book.volumeInfo.title.isNullOrEmpty())
                 textViewTitle.isVisible = false
             else
                 textViewTitle.text = book.volumeInfo.title
 
-            if (volumeInfo.authors.isNullOrEmpty())
+            if (book.volumeInfo.authors.isNullOrEmpty())
                 textViewAuthor.isVisible = false
             else
-                textViewAuthor.text = book.volumeInfo.authors.joinToString(", ")
+                textViewAuthor.text = book.volumeInfo.authors!!.joinToString(", ")
 
-            if (volumeInfo.imageLinks != null) {
+            if (book.volumeInfo.imageLinks != null) {
                 var imageUrl = book.volumeInfo.imageLinks!!.thumbnail
-                    .replace("http://", "https://")
+                    ?.replace("http://", "https://")
 
                 imageViewBook.load(imageUrl){
                     crossfade(true)
@@ -82,21 +87,13 @@ class SearchResultAdapter(private val searchResultClickListener: SearchResultCli
                     transformations(CircleCropTransformation())
                 }
             }
+            else{
+                imageViewBook.load("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"){
+                    crossfade(true)
+                    placeholder(R.drawable.ic_baseline_menu_book_24)
+                    transformations(CircleCropTransformation())
+                }
+            }
         }
-    }
-
-    private fun checkIfVolumeInfoNull(volumeInfo: VolumeInfo): VolumeInfo {
-        if(volumeInfo.authors.isNullOrEmpty())
-            volumeInfo.authors = listOf()
-        if(volumeInfo.title.isNullOrEmpty())
-            volumeInfo.title = ""
-        if(volumeInfo.imageLinks == null){
-            var imageLink: ImageLinks = ImageLinks("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png")
-            volumeInfo.imageLinks = imageLink
-        }
-        if(volumeInfo.description.isNullOrEmpty()){
-            volumeInfo.description = ""
-        }
-        return volumeInfo
     }
 }

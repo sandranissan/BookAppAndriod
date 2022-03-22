@@ -1,4 +1,4 @@
-package se.ju.bookapp.Android.fragments
+package se.ju.bookapp.Android.Fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -7,31 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.HttpException
 import se.ju.bookapp.Android.Api.RetrofitInstance
+import se.ju.bookapp.Android.SearchResultClickListener
+import se.ju.bookapp.Android.SearchResultModel.VolumeInfo
+import se.ju.bookapp.Android.R
 import se.ju.bookapp.Android.SearchResultAdapter
+import se.ju.bookapp.Android.SearchResultModel.ImageLinks
 import se.ju.bookapp.Android.databinding.FragmentSearchBinding
 import java.io.IOException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 const val TAG ="SearchFragment"
 
-class SearchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class SearchFragment : Fragment(), SearchResultClickListener {
 
     private lateinit var binding: FragmentSearchBinding
 
@@ -39,11 +33,6 @@ class SearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-
         println("SearchFragment: onCreate")
     }
 
@@ -52,43 +41,18 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        println("SearchFragment: onCreateView")
-
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-
-        println("SearchFragment: onStart")
         setupRecyclerView()
         setupSearchView()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
-
     private fun setupRecyclerView() = binding.searchResultRecyclerView.apply {
-        println("SearchFragment: setUpRecyclerView")
-        searchResultAdapter = SearchResultAdapter()
+        searchResultAdapter = SearchResultAdapter(this@SearchFragment)
         adapter = searchResultAdapter
         layoutManager = LinearLayoutManager(this@SearchFragment.context)
     }
@@ -105,6 +69,7 @@ class SearchFragment : Fragment() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 if (query != null) {
+                    searchBook(query).cancel()
                     searchBook(query)
                 }
                 return true
@@ -113,10 +78,9 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun searchBook (query: String) {
-        val urlQuery = query.replace(" ", "+")
-
+    private fun searchBook (query: String) =
         lifecycleScope.launchWhenCreated {
+            val urlQuery = query.replace(" ", "+")
             binding.progressBar.isVisible = true
             val response = try {
                 RetrofitInstance.api.getBooksByQuery(urlQuery)
@@ -140,6 +104,10 @@ class SearchFragment : Fragment() {
             }
             binding.progressBar.isVisible = false
         }
+
+    override fun onItemClick(volumeInfo: VolumeInfo, bookId: String) {
+        val bundle = bundleOf("volumeInfo" to volumeInfo, "bookId" to bookId)
+        findNavController().navigate(R.id.specificBookPageFragment, bundle)
     }
 }
 
