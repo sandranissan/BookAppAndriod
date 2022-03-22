@@ -94,15 +94,15 @@ class ToReadBooksFragment : Fragment(), BookListClickListener {
 
     override fun onItemLongClick(listVolumeInfo: ListVolumeInfo, bookId: String) {
         AlertDialog.Builder(this.context)
-            .setTitle("Would you like to remove book from list?")
-            .setMessage("Would you like to ${listVolumeInfo.title} from \"To Read List\"?")
+            .setTitle(getString(R.string.RemoVee))
+            .setMessage("Would you like to remove ${listVolumeInfo.title} from \"To Read List\"?")
             .setPositiveButton(
-                "Yes"
+                getString(R.string.Yes)
             ) { _, _ ->
                 deleteFromToReadList(bookId)
                 findNavController().navigate(R.id.toReadBooksFragment)
             }.setNegativeButton(
-                "No"
+                getString(R.string.No)
             ) { _, _ ->
 
             }.show()

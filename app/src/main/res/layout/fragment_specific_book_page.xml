@@ -31,7 +31,7 @@
 
                 <TextView
                     android:id="@+id/titleTv"
-                    android:text="Title"
+                    android:text="@string/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/authorTv"
-                    android:text="Authors"
+                    android:text="@string/authors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -59,12 +59,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="Publisher"
+                    android:text="@string/publisher"
                     android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/pageCountTv"
-                    android:text="pageCount"
+                    android:text="@string/pagecount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -74,7 +74,7 @@
                     android:id="@+id/addToMyWantToReadBtn"
                     android:layout_width="235sp"
                     android:layout_height="wrap_content"
-                    android:text="Add to my want to read list"
+                    android:text="@string/add_to_my_want_to_read_list"
                     android:textAllCaps="false"
                     android:backgroundTint="#6E77C6"
                     android:textColor="@color/black">
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5sp"
                     android:layout_marginBottom="5sp"
-                    android:text="or"
+                    android:text="@string/or"
                     android:textColor="@color/black"
                     android:layout_gravity="center_horizontal"
                     android:textSize="15sp" />
@@ -93,7 +93,7 @@
                     android:id="@+id/addToMyReadBtn"
                     android:layout_width="235sp"
                     android:layout_height="wrap_content"
-                    android:text="Add to my read list"
+                    android:text="@string/add_to_my_read_list"
                     android:backgroundTint="#77C66E"
                     android:textColor="@color/black"
                     android:textAllCaps="false">

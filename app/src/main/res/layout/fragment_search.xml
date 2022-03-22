@@ -32,7 +32,7 @@
             android:iconifiedByDefault="false"
             android:paddingStart="-18sp"
             android:paddingEnd="-18sp"
-            app:defaultQueryHint="Search books..."
+            app:defaultQueryHint="@string/SerachBooksHint"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

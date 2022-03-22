@@ -3,17 +3,17 @@
     <item
         android:id="@+id/toReadBooksFragment"
         android:icon="@drawable/ic_baseline_menu_book_24"
-        android:title="My Books" />
+        android:title="@string/my_books" />
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/ic_search"
-        android:title="Search" />
+        android:title="@string/search" />
     <item
         android:id="@+id/discoverFragment"
         android:icon="@drawable/ic_explore"
-        android:title="Discover" />
+        android:title="@string/discover" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_person"
-        android:title="Profile" />
+        android:title="@string/profile" />
 </menu>
