@@ -22,11 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         firebaseAuth = FirebaseAuth.getInstance()
-
-<<<<<<< HEAD
-
-=======
->>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         val navController = findNavController(R.id.fragmentContainerView)
 
@@ -34,27 +29,22 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigation.setOnItemSelectedListener{
             val isLoggedIn = Firebase.auth.currentUser
-<<<<<<< HEAD
 
-=======
             println("isLoggedI,  $isLoggedIn")
             println("User email, ${isLoggedIn?.email}")
->>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd
             navController.navigate(it.itemId)
             when (it.itemId) {
                 R.id.toReadBooksFragment -> {
                     if (isLoggedIn != null) {
                         navController.navigate(R.id.toReadBooksFragment)
                     } else {
-<<<<<<< HEAD
                         Toast.makeText(this, getString(R.string.logInTooSeeBooks), Toast.LENGTH_SHORT).show()
-=======
+
                         Toast.makeText(
                             this,
                             "You need to Log in to see you're books",
                             Toast.LENGTH_SHORT
                         ).show()
->>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd
                         navController.navigate(R.id.signInPageFragment)
                     }
                 }
@@ -70,9 +60,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd
     }
 }

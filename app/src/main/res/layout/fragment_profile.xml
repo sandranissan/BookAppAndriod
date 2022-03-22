@@ -61,12 +61,8 @@
                 android:layout_width="250sp"
                 android:layout_height="60sp"
                 android:backgroundTint="#f70d1a"
-<<<<<<< HEAD:app/src/main/res/layout/fragment_profile2.xml
                 android:text="@string/sign_out"
-=======
                 android:layout_gravity="center_horizontal"
-                android:text="Sign out"
->>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd:app/src/main/res/layout/fragment_profile.xml
                 android:textColor="@color/white"
                 android:textSize="30sp">
 

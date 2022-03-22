@@ -16,11 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-<<<<<<< HEAD
             android:text="@string/discover_books"
-=======
-            android:text="Discover"
->>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd
             android:layout_gravity="top|center_horizontal"
             android:layout_marginBottom="8dp"
             android:layout_marginRight="16dp"
@@ -39,12 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
-                android:textStyle="bold"
-                android:text="@string/new_books"
-=======
                 android:text="Recomended books"
->>>>>>> c1dacb298f6073acb7e9282d742d693b1d73b5bd
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="16dp"
