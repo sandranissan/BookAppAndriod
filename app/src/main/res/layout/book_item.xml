@@ -32,7 +32,7 @@
 
                 <TextView
                     android:id="@+id/text_view_title"
-                    android:text="Title"
+                    android:text="@string/titleBook"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="@color/black"
@@ -51,7 +51,7 @@
 
                 <TextView
                     android:id="@+id/text_view_author"
-                    android:text="Author"
+                    android:text="@string/author"
                     android:textStyle="normal"
                     android:textSize="16sp"
                     android:textColor="@color/black"

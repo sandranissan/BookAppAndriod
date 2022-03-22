@@ -100,10 +100,10 @@ class SignInPageFragment : Fragment() {
 
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(requireActivity()){ task ->
             if(task.isSuccessful) {
-                Toast.makeText(requireContext(), "Successfully logged in", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.logInMessage), Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.discoverFragment)
             } else {
-                Toast.makeText(requireContext(), "Log in failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.logInFailMessage), Toast.LENGTH_SHORT).show()
 
             }
         }

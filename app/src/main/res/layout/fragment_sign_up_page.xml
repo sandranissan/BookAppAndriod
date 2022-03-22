@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello! Sign-up to get started!"
+        android:text="@string/hello_sign_up_to_get_started"
         android:paddingTop="120sp"
         android:textColor="@color/black"
         android:textSize="28sp"
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:inputType="textPersonName"
                 />
 
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Password"
+                android:hint="@string/passwordSignUp"
                 android:inputType="textPassword"
                 />
 
@@ -62,7 +62,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="200sp"
                 android:layout_height="wrap_content"
-                android:text="Sign-up"
+                android:text="@string/sign_up"
                 android:backgroundTint="@android:color/white"
                 android:textColor="#1E90FF"
                 android:textSize="25sp"/>
@@ -74,6 +74,15 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp" />
+            <Button
+                android:id="@+id/btn_to_login_fromRegister"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:text="@string/already_have_an_account"
+                android:textSize="15sp"
+                android:backgroundTint="@android:color/white"
+                android:textColor="#32CD32"
+                android:textAllCaps="false"/>
 
         </LinearLayout>
         <ProgressBar

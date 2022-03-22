@@ -49,7 +49,7 @@
                 android:layout_width="250sp"
                 android:layout_height="60sp"
                 android:backgroundTint="#f70d1a"
-                android:text="Sign out"
+                android:text="@string/sign_out"
                 android:textColor="@color/white"
                 android:textSize="30sp">
 
