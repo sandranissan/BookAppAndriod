@@ -35,10 +35,11 @@
                 android:layout_height="match_parent"
                 android:text="@string/to_read_list"
                 android:textStyle="bold"
-                android:textSize="10sp"
-                android:layout_gravity="left"
-                android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>/>
+                android:textSize="11sp"
+                android:layout_gravity="start"
+                app:icon="@drawable/ic_baseline_arrow_back_ios_24"
+                app:iconGravity="textStart"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
 
         </FrameLayout>
 

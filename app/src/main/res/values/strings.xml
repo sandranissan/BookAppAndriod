@@ -45,7 +45,7 @@
     <string name="discover">Discover</string>
     <string name="profile">Profile</string>
     <string name="title">Title</string>
-    <string name="SerachBooksHint">Search books...</string>
+    <string name="SearchBooksHint">Search books...</string>
     <string name="RemoveBook">Would you like to remove book from list?</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>

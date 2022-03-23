@@ -42,7 +42,7 @@
     <string name="discover">Upptäck</string>
     <string name="profile">Profil</string>
     <string name="title">Titel</string>
-    <string name="SerachBooksHint">Sök efter böcker...</string>
+    <string name="SearchBooksHint">Sök efter böcker...</string>
     <string name="RemoveBook">Vill du ta bort boken från listan?</string>
     <string name="Yes">Ja</string>
     <string name="No">Nej</string>
