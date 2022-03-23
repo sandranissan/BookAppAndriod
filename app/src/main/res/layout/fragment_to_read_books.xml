@@ -12,16 +12,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="297dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="@string/to_read_list"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -30,11 +31,14 @@
             <Button
                 android:id="@+id/readButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/read_list"
+                android:textStyle="bold"
                 android:textSize="10sp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
+                android:layout_gravity="right"
+                android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
+        </FrameLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
