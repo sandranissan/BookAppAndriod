@@ -81,7 +81,6 @@ class ToReadBooksFragment : Fragment(), BookListClickListener {
     }
 
     private fun setupRecyclerView() = ToReadBooksRv.apply {
-        println("SearchFragment: setUpRecyclerView")
         bookListAdapter = BookListAdapter(this@ToReadBooksFragment)
         adapter = bookListAdapter
         layoutManager = LinearLayoutManager(this@ToReadBooksFragment.context)
@@ -95,7 +94,8 @@ class ToReadBooksFragment : Fragment(), BookListClickListener {
     override fun onItemLongClick(listVolumeInfo: ListVolumeInfo, bookId: String) {
         AlertDialog.Builder(this.context)
             .setTitle(getString(R.string.RemoVee))
-            .setMessage("Would you like to remove ${listVolumeInfo.title} from \"To Read List\"?")
+            .setMessage(getString(R.string.WouldYouLikeToRemove) + " " + listVolumeInfo.title + " " + getString(
+                            R.string.fromToReadList) + "?")
             .setPositiveButton(
                 getString(R.string.Yes)
             ) { _, _ ->

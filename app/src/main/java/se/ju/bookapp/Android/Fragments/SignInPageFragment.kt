@@ -17,9 +17,8 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
-import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.*
 import se.ju.bookapp.Android.R
-import com.google.firebase.auth.FirebaseAuth
 
 
 import kotlinx.android.synthetic.main.fragment_sign_in_page.*
@@ -73,14 +72,38 @@ class SignInPageFragment : Fragment() {
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
 
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(requireActivity()){ task ->
-            if(task.isSuccessful) {
-                Toast.makeText(requireContext(), getString(R.string.logInMessage), Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.discoverFragment)
-            } else {
-                Toast.makeText(requireContext(), getString(R.string.logInFailMessage), Toast.LENGTH_SHORT).show()
-            }
+        if(email.isBlank() || password.isBlank()) {
+            Toast.makeText(requireActivity(), getString(R.string.EmailPasswordCantBeBlank),Toast.LENGTH_SHORT).show()
+            return
         }
+
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+            .addOnCompleteListener(requireActivity()){ task ->
+                if(task.isSuccessful) {
+                    Toast.makeText(requireContext(), getString(R.string.logInMessage), Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.discoverFragment)
+                }
+                else {
+                    Toast.makeText(requireContext(), getString(R.string.logInFailMessage), Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener(){
+                try {
+                    throw it
+                } catch (e: FirebaseAuthWeakPasswordException) {
+                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+
+                } catch (e: FirebaseAuthInvalidCredentialsException) {
+                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+
+                } catch (e: FirebaseAuthUserCollisionException) {
+                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+                }
+                catch (e: FirebaseAuthInvalidUserException) {
+                    Toast.makeText(requireContext(), getString(R.string.user_doesnt_exist), Toast.LENGTH_SHORT).show()
+                    println(e.errorCode)
+                }
+            }
     }
 
     private fun signInFb() {
@@ -91,7 +114,7 @@ class SignInPageFragment : Fragment() {
             }
 
             override fun onCancel() {
-                Toast.makeText(requireContext(), "Login Cancelled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.login_cancelled), Toast.LENGTH_SHORT).show()
             }
 
             override fun onError(error: FacebookException) {
@@ -113,7 +136,7 @@ class SignInPageFragment : Fragment() {
                 val email = result.user!!.email
                 Toast.makeText(
                     requireActivity(),
-                    "You logged in with this email: $email",
+                    getString(R.string.you_logged_in_with_this_mail) + ": " + email.toString(),
                     Toast.LENGTH_LONG
                 ).show()
             }

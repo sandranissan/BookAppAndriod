@@ -74,7 +74,6 @@ class DiscoverFragment : Fragment(), SearchResultClickListener {
         }
 
     private fun setupRecyclerView() = RecomendedBooksRv.apply {
-        println("SearchFragment: setUpRecyclerView")
         searchResultAdapter = SearchResultAdapter(this@DiscoverFragment)
         adapter = searchResultAdapter
         layoutManager = LinearLayoutManager(this@DiscoverFragment.context)

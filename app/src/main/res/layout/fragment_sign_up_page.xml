@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_sign_up_to_get_started"
+        android:layout_gravity="center_horizontal"
         android:paddingTop="120sp"
         android:textColor="@color/black"
         android:textSize="28sp"
@@ -28,15 +29,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/etNameSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/name"
-                android:inputType="textPersonName"
-                />
 
             <EditText
                 android:id="@+id/etEmailSignUp"

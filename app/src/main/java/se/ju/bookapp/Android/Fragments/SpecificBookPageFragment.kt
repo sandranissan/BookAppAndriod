@@ -97,7 +97,6 @@ class SpecificBookPageFragment : Fragment() {
         docRef.get()
             .addOnSuccessListener {
                 if(it.exists()){
-                    println("BOOK IN READ-LIST")
                     AlertDialog.Builder(this.context)
                         .setTitle(getString(R.string.BookExist))
                         .setMessage(getString(R.string.ReallyWantToAdd))
@@ -154,11 +153,11 @@ class SpecificBookPageFragment : Fragment() {
         db.collection("toReadList").document(auth!!.uid).collection("Books").document(bookId).set(listVolumeInfo)
             .addOnSuccessListener {
                 Log.d("SpecificBookPage", "DocumentSnapshot successfully written!")
-                Toast.makeText(this.context, "Book added to \"To Read list\"", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, getString(R.string.book_added_to_to_read_list), Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                     e -> Log.w("SpecificBookPage", "Error writing document", e)
-                    Toast.makeText(this.context, "Failed to add book to \"To Read list\"", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, getString(R.string.failed_to_add_to_to_read_list), Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -166,11 +165,11 @@ class SpecificBookPageFragment : Fragment() {
         db.collection("readList").document(auth!!.uid).collection("Books").document(bookId).set(listVolumeInfo)
             .addOnSuccessListener {
                 Log.d("SpecificBookPage", "DocumentSnapshot successfully written!")
-                Toast.makeText(this.context, "Book added to \"Read list\"", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, getString(R.string.book_added_to_read_list), Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                     e -> Log.w("SpecificBookPage", "Error writing document", e)
-                    Toast.makeText(this.context, "Failed to add book to \"Read list\"", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, getString(R.string.failed_to_add_to_read_list), Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -211,7 +210,7 @@ class SpecificBookPageFragment : Fragment() {
         if (listVolumeInfo?.pageCount == 0){
             pageCountTv.isVisible = false
         }
-        pageCountTv.text = "${listVolumeInfo?.pageCount} pages"
+        pageCountTv.text = listVolumeInfo?.pageCount.toString() + " " + getString(R.string.pages)
 
         var imageUrl = listVolumeInfo?.imageLinks?.thumbnail
             ?.replace("http://", "https://")

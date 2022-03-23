@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">BookApp</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="facebook_app_id">5030549990299561</string>
-    <string name="fb_login_protocol_scheme">fb5030549990299561</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="facebook_app_id" translatable="false">5030549990299561</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb5030549990299561</string>
     <string name="titleBook">Title</string>
     <string name="author">Author</string>
     <string name="discover_books">Discover books</string>
@@ -25,7 +25,7 @@
     <string name="logIn">You need to Log in</string>
     <string name="loginFailedMessage">Email must contain \'@\'</string>
     <string name="signUpSuccess">Successfully Signed up</string>
-    <string name="NameEmailPassword">Name, Email and password can\'t be blank</string>
+    <string name="EmailPasswordCantBeBlank">Email and password can\'t be blank</string>
     <string name="logInMessage">Successfully logged in</string>
     <string name="logInFailMessage">Log in failed</string>
     <string name="recomended_books">Recomended books</string>
@@ -56,5 +56,19 @@
     <string name="Existingbook">Book exists in: To Read List</string>
     <string name="AddBookTo">Do you really want to add it to: Read List</string>
     <string name="RemoVee">Remove book from the list?</string>
+    <string name="WouldYouLikeToRemove">Would you like to remove</string>
+    <string name="from">from</string>
+    <string name="list">list</string>
+    <string name="fromReadList">from Read List</string>
+    <string name="fromToReadList">from To Read List</string>
+    <string name="login_cancelled">Login Cancelled</string>
+    <string name="you_logged_in_with_this_mail">You logged in with this email</string>
+    <string name="failed_to_add_to_to_read_list">Failed to add book to To Read list</string>
+    <string name="book_added_to_to_read_list">Book added to To Read list</string>
+    <string name="book_added_to_read_list">Book added to Read list</string>
+    <string name="failed_to_add_to_read_list">Failed to add book to Read list</string>
+    <string name="DefaultBookCover">https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png</string>
+    <string name="pages">pages</string>
+    <string name="user_doesnt_exist">User doesn\'t exist</string>
 
 </resources>

@@ -33,7 +33,6 @@ class SearchFragment : Fragment(), SearchResultClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        println("SearchFragment: onCreate")
     }
 
     override fun onCreateView(

@@ -77,22 +77,10 @@ class BookListAdapter(private val bookListClickListener: BookListClickListener):
             else
                 textViewAuthor.text = book.volumeInfo.authors!!.joinToString(", ")
 
-            if (book.volumeInfo.imageLinks != null) {
-                var imageUrl = book.volumeInfo.imageLinks!!.thumbnail
-                    ?.replace("http://", "https://")
-
-                imageViewBook.load(imageUrl){
-                    crossfade(true)
-                    placeholder(R.drawable.ic_baseline_menu_book_24)
-                    transformations(CircleCropTransformation())
-                }
-            }
-            else{
-                imageViewBook.load("https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png"){
-                    crossfade(true)
-                    placeholder(R.drawable.ic_baseline_menu_book_24)
-                    transformations(CircleCropTransformation())
-                }
+            imageViewBook.load(book.volumeInfo.imageLinks!!.thumbnail){
+                crossfade(true)
+                placeholder(R.drawable.ic_baseline_menu_book_24)
+                transformations(CircleCropTransformation())
             }
         }
     }

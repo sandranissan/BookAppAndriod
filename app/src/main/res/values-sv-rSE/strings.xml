@@ -24,7 +24,7 @@
     <string name="logIn">Du måste logga in</string>
     <string name="loginFailedMessage">Email måste innehålla \'@\'</string>
     <string name="signUpSuccess">Skapa konto lyckades</string>
-    <string name="NameEmailPassword">Namn, email och lösenord får inte vara tomt</string>
+    <string name="EmailPasswordCantBeBlank">Email och lösenord får inte vara tomt</string>
     <string name="logInMessage">Logga in lyckades</string>
     <string name="logInFailMessage">Logga in misslyckades</string>
     <string name="recomended_books">Rekommenderade böcker</string>
@@ -53,4 +53,18 @@
     <string name="Existingbook">Boken finns redan i: Att Läsa</string>
     <string name="AddBookTo">Vill du flytta på bok till: Lästa Böcker</string>
     <string name="RemoVee">Radera boken från listan?</string>
+    <string name="WouldYouLikeToRemove">Skulle du vilja radera</string>
+    <string name="from">från</string>
+    <string name="list">listan</string>
+    <string name="fromReadList">från Lästa Böcker Listan?</string>
+    <string name="fromToReadList">från Att Läsa Listan?</string>
+    <string name="login_cancelled">Inlogg avbrytet</string>
+    <string name="you_logged_in_with_this_mail">Du loggade in med detta mejl</string>
+    <string name="failed_to_add_to_to_read_list">Lyckades inte lägga till i \"Att läsa listan\"</string>
+    <string name="book_added_to_to_read_list">Booken tillagd i \"Att läsa listan\"</string>
+    <string name="book_added_to_read_list">Book tillagd i \"Lästa böcker listan\"</string>
+    <string name="failed_to_add_to_read_list">Lyckade inte lägga till i \"Lästa böcker listan\"</string>
+    <string name="DefaultBookCover">https://toppng.com/uploads/preview/book-11549420966kupbnxvyyl.png</string>
+    <string name="pages">sidor</string>
+    <string name="user_doesnt_exist">Användaren finns inte</string>
 </resources>

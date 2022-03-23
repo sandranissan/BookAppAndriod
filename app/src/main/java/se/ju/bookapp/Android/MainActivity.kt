@@ -14,9 +14,6 @@ import com.google.firebase.auth.ktx.auth
 class MainActivity : AppCompatActivity() {
 
     var firebaseAuth: FirebaseAuth? = null
-//    var callbackManager: CallbackManager? = null
-//    var mAuthListener : FirebaseAuth.AuthStateListener? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -39,7 +39,6 @@ class SignUpPageFragment : Fragment() {
 
         val view= inflater.inflate(R.layout.fragment_sign_up_page, container, false)
         val signInBtn : Button = view.findViewById(R.id.btn_to_login_fromRegister)
-        nameEditText = view.findViewById(R.id.etNameSignUp)
         emailEditText = view.findViewById(R.id.etEmailSignUp)
         passwordEditText = view.findViewById(R.id.etPasswordSignUp)
         registerButton = view.findViewById(R.id.signUpBtnSignUp)
@@ -58,27 +57,21 @@ class SignUpPageFragment : Fragment() {
     }
 
     private fun signUpUser() {
-        val name = nameEditText.text.toString()
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
 
         //validate
-        if(name.isBlank() || email.isBlank() || password.isBlank()) {
-            Toast.makeText(requireActivity(), getString(R.string.NameEmailPassword),Toast.LENGTH_SHORT).show()
+        if(email.isBlank() || password.isBlank()) {
+            Toast.makeText(requireActivity(), getString(R.string.EmailPasswordCantBeBlank),Toast.LENGTH_SHORT).show()
             return
         }
-        //if name, email and password is okey
+        //if name, email and password is okay
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(requireActivity()){ task ->
             if(task.isSuccessful) {
                 Log.d(TAG,"createUserWithEmail:success")
                 Toast.makeText(requireContext(), getString(R.string.signUpSuccess), Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.discoverFragment)
-
             }
-            //else {
-
-            //    Toast.makeText(requireContext(), getString(R.string.loginFailedMessage), Toast.LENGTH_SHORT).show()
-           // }
         }.addOnFailureListener(){
                 try {
                     throw it
@@ -93,6 +86,5 @@ class SignUpPageFragment : Fragment() {
                     Toast.makeText(requireContext(), getString(R.string.User_exists) , Toast.LENGTH_SHORT).show()
                 }
         }
-
     }
 }
