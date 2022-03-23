@@ -79,14 +79,14 @@ class SpecificBookPageFragment : Fragment() {
 
     private fun logInDialog(){
         AlertDialog.Builder(this.context)
-            .setTitle("You need to sign in to to add book to list")
-            .setMessage("Would you like to sign in?")
+            .setTitle(getString(R.string.NeedToSignIn))
+            .setMessage(getString(R.string.WouldSignIn))
             .setPositiveButton(
-                "Yes"
+                getString(R.string.Yes)
             ) { _, _ ->
                 findNavController().navigate(R.id.signInPageFragment)
             }.setNegativeButton(
-                "No"
+                getString(R.string.No)
             ) { _, _ ->
 
             }.show()
@@ -99,15 +99,15 @@ class SpecificBookPageFragment : Fragment() {
                 if(it.exists()){
                     println("BOOK IN READ-LIST")
                     AlertDialog.Builder(this.context)
-                        .setTitle("Book exists in: Read List")
-                        .setMessage("Do you really want to add it to: To Read List")
+                        .setTitle(getString(R.string.BookExist))
+                        .setMessage(getString(R.string.ReallyWantToAdd))
                         .setPositiveButton(
-                            "Yes"
+                            getString(R.string.Yes)
                         ) { _, _ ->
                             addToToReadList(volumeInfo, bookId)
                             deleteFromReadList(bookId)
                         }.setNegativeButton(
-                            "No"
+                            getString(R.string.No)
                         ) { _, _ ->
 
                         }.show()
@@ -128,15 +128,15 @@ class SpecificBookPageFragment : Fragment() {
                 if(it.exists()){
                     println("BOOK IN TO-READ-LIST")
                     AlertDialog.Builder(this.context)
-                        .setTitle("Book exists in: To Read List")
-                        .setMessage("Do you really want to add it to: Read List")
+                        .setTitle(getString(R.string.Existingbook))
+                        .setMessage(getString(R.string.AddBookTo))
                         .setPositiveButton(
-                            "Yes"
+                            getString(R.string.Yes)
                         ) { _, _ ->
                             addToReadList(listVolumeInfo, bookId)
                             deleteFromToReadList(bookId)
                         }.setNegativeButton(
-                            "No"
+                            getString(R.string.No)
                         ) { _, _ ->
 
                         }.show()

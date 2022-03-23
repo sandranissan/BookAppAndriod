@@ -2,7 +2,6 @@ package se.ju.bookapp.Android.Fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import se.ju.bookapp.Android.R
+
 
 class SignUpPageFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -70,9 +74,25 @@ class SignUpPageFragment : Fragment() {
                 Toast.makeText(requireContext(), getString(R.string.signUpSuccess), Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.discoverFragment)
 
-            } else {
-                Toast.makeText(requireContext(), getString(R.string.loginFailedMessage), Toast.LENGTH_SHORT).show()
             }
+            //else {
+
+            //    Toast.makeText(requireContext(), getString(R.string.loginFailedMessage), Toast.LENGTH_SHORT).show()
+           // }
+        }.addOnFailureListener(){
+                try {
+                    throw it
+                } catch (e: FirebaseAuthWeakPasswordException) {
+                    Toast.makeText(requireContext(), getString(R.string.PassWord_error) , Toast.LENGTH_SHORT).show()
+
+                } catch (e: FirebaseAuthInvalidCredentialsException) {
+                    println(e.message)
+                    Toast.makeText(requireContext(),getString(R.string.Email_bad) , Toast.LENGTH_SHORT).show()
+
+                } catch (e: FirebaseAuthUserCollisionException) {
+                    Toast.makeText(requireContext(), getString(R.string.User_exists) , Toast.LENGTH_SHORT).show()
+                }
         }
+
     }
 }

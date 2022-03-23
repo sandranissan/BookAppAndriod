@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Recomended books"
+                android:text="@string/recomended_books"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="16dp"
