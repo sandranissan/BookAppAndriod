@@ -50,7 +50,7 @@
     <string name="WouldSignIn">Vill du logga in?</string>
     <string name="BookExist">Book finns redan i: Lästa Böcker</string>
     <string name="ReallyWantToAdd">Vill du lägga till bok till: Att Läsa</string>
-    <string name="Existingbook">Boken finns redan i: Att Läsa</string>
+    <string name="Existingbook">Boken ligger nu i: Att Läsa</string>
     <string name="AddBookTo">Vill du flytta på bok till: Lästa Böcker</string>
     <string name="RemoVee">Radera boken från listan?</string>
     <string name="WouldYouLikeToRemove">Skulle du vilja radera</string>
